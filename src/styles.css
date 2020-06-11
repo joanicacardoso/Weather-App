@@ -112,3 +112,11 @@ ul {
   font-weight: 500;
   font-size: 14px;
 }
+
+.open-source {
+  display: block;
+  font-size: 12px;
+  margin-top: 52px;
+  margin-left: -22px;
+  color: gray;
+}
