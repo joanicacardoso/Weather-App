@@ -1,65 +1,150 @@
 // Set local time
 
+function formatDate(date) {
+  let day = date.getDay();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let month = date.getMonth();
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = "0" + hours;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+  return `${days[day]}, ${
+    months[month]
+  } ${now.getDate()}</br>${hours}:${minutes}`;
+}
+
 let now = new Date();
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-let minutes = now.getMinutes();
-if (minutes < 10) {
-  minutes = "0" + minutes;
-}
-
 let currentDate = document.querySelector("#date");
-currentDate.innerHTML = `${days[now.getDay()]}, ${
-  months[now.getMonth()]
-} ${now.getDate()}</br>${now.getHours()}:${now.getMinutes()}`;
+currentDate.innerHTML = formatDate(now);
 
-// Set City
+//Search Engine
 
-function changeCity(event) {
+function showTemperature(response) {
+  document.querySelector("#city").innerHTML = response.data.name;
+  document.querySelector("#temperature").innerHTML = Math.round(
+    response.data.main.temp
+  );
+  savedTemperature = Math.round(response.data.main.temp);
+  document.querySelector("#current-condition").innerHTML =
+    response.data.weather[0].main;
+  document.querySelector("#feels-like").innerHTML = Math.round(
+    response.data.main.feels_like
+  );
+  document.querySelector("#wind").innerHTML = Math.round(
+    response.data.wind.speed
+  );
+  document.querySelector("#humidity").innerHTML = response.data.main.humidity;
+}
+
+function search(city) {
+  let apiKey = "48f466c2eeef74f8d4b3c29e67806457";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(showTemperature);
+}
+
+function searchCity(event) {
   event.preventDefault();
-  let localCity = document.querySelector("#city");
-  let newcity = document.querySelector("#city-input");
-  localCity.innerHTML = newcity.value;
+  let city = document.querySelector("#city-input").value;
+  search(city);
 }
 
-let form = document.querySelector("#search-form");
-form.addEventListener("submit", changeCity);
+let cityForm = document.querySelector("#search-form");
+cityForm.addEventListener("submit", searchCity);
 
-// Change temperature units
+search("Lisbon");
 
-function convertCel() {
+let savedTemperature = 0;
+
+//Current location
+
+let buttonCurrentLocation = document.querySelector("#current-location-btn");
+
+function retrievePosition(position) {
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let apiKey = "48f466c2eeef74f8d4b3c29e67806457";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(showTemperature);
+}
+
+function getPosition(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(retrievePosition);
+}
+
+buttonCurrentLocation.addEventListener("click", getPosition);
+
+// Change temperature units - WIP
+
+function convertCel(event) {
+  event.preventDefault();
   let currentTemp = document.querySelector("#temperature");
-  currentTemp.innerHTML = 25;
+  let units = document.querySelector("#units");
+  currentTemp.innerHTML = savedTemperature;
+  units.innerHTML = ` ºC`;
 }
-function convertFah() {
+
+function convertFah(event) {
+  event.preventDefault();
   let currentTemp = document.querySelector("#temperature");
-  currentTemp.innerHTML = 77;
+  let fTemp = Math.round(currentTemp * 9) / 5 + 32;
+  let units = document.querySelector("#units");
+  currentTemp.innerHTML = fTemp;
+  units.innerHTML = ` ºF`;
 }
 
-let celsius = document.querySelector("#btn-cel");
-celsius.addEventListener("click", convertCel);
+let fahrButton = document.querySelector("#btn-fah");
+fahrButton.addEventListener("click", convertFah);
 
-let fahr = document.querySelector("#btn-fah");
-fahr.addEventListener("click", convertFah);
+let celsiusButton = document.querySelector("#btn-cel");
+celsiusButton.addEventListener("click", convertCel);
+
+/* 5 days forecast - WIP
+function showDaysForecast(response) {
+  /*let minDay1 = document.querySelector("#min-day1");
+  let minDay2 = document.querySelector("#min-day2");
+  let minDay3 = document.querySelector("#min-day3");
+  let minDay4 = document.querySelector("#min-day4");
+  let minDay5 = document.querySelector("#min-day5");
+  let maxDay1 = document.querySelector("#max-day1");
+  let maxDay2 = document.querySelector("#max-day2");
+  let maxDay3 = document.querySelector("#max-day3");
+  let maxDay4 = document.querySelector("#max-day4");
+  let maxDay5 = document.querySelector("#max-day5");
+  minDay1.innerHTML = response.data.name;
+
+  console.log(response.data.forecast);
+}
+
+/*let apiUrlDays = `https://api.openweathermap.org/data/2.5/forecast/daily?q=${
+    cityInput.value
+  }&cnt=5&appid=${apiKey}`;
+  axios.get(apiUrlDays).then(showDaysForecast);
+*/
