@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <script src="src/script.js"></script>
+    <link rel="stylesheet" href="src/styles.css" />
+    <script src="https://kit.fontawesome.com/c8ab3a3593.js" crossorigin="anonymous"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,800;1,300;1,400;1,500&display=swap"
+        rel="stylesheet">
+    <title>☀️ Weather App</title>
+</head>
+
+<body>
+    <div class="container my-container">
+        <div class="row">
+            <div class="col-8">
+                <form id="search-form">
+                    <input type="text" placeholder="Enter a city" autocomplete="off" class="search-box"
+                        id="city-input" />
+                    <button type="submit" id="submit-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="col-4">
+                <button class="celsius" id="btn-cel">ºC</button>
+                <button class="fahr" id="btn-fah">ºF</button>
+            </div>
+        </div>
+        <h1 id="city">
+            Lisbon
+        </h1>
+        <h2>
+            <div class="date" id="date"> </div>
+        </h2>
+        <div class="row row-cols-2">
+            <div class="col">
+                <img src="images/sun.png" alt="sun" width="150px">
+            </div>
+            <div class="col">
+                <div class="current-temp">
+                    <span id="temperature">25</span>
+                    <span class="units">ºC</span> </br>
+                    <span class="current-condition">Sunny</span>
+                </div>
+                <h4>
+                    <ul class="list-unstyled">
+                        <li>
+                            Precipitation: 72%
+                        </li>
+                        <li>
+                            Wind: 6km/h
+                        </li>
+                        <li>Humidity: 54%</li>
+                    </ul>
+                </h4>
+            </div>
+            <br />
+        </div>
+        <br />
+        </main>
+        <div id="days">
+            <div class="row row-cols-5">
+                <div class="col">
+                    Fri <br />
+                    08/05
+                    <img src="images/sun.png" alt="sun" width="30px">
+                    <br />
+                    12º/<span class="maxtemp">24º</span>
+                </div>
+                <div class="col">
+                    Fri <br />
+                    08/05<br />
+                    <img src="images/sun.png" alt="sun" width="30px">
+                    <br />
+                    12º/<span class="maxtemp">24º</span>
+                </div>
+                <div class="col">
+                    Fri <br />
+                    08/05<br />
+                    <img src="images/sun.png" alt="sun" width="30px">
+                    <br />
+                    12º/<span class="maxtemp">24º</span>
+                </div>
+                <div class="col">
+                    Fri <br />
+                    08/05<br />
+                    <img src="images/sun.png" alt="sun" width="30px">
+                    <br />
+                    12º/<span class="maxtemp">24º</span>
+                </div>
+                <div class="col">
+                    Fri <br />
+                    08/05<br />
+                    <img src="images/sun.png" alt="sun" width="30px">
+                    <br />
+                    12º/<span class="maxtemp">24º</span>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
