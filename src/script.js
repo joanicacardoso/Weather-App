@@ -1,6 +1,6 @@
-// Set local time
+// Set local time (old)
 
-function formatDate(date) {
+/*function formatDate(date) {
   let day = date.getDay();
   let days = [
     "Sunday",
@@ -43,6 +43,48 @@ function formatDate(date) {
 let now = new Date();
 let currentDate = document.querySelector("#date");
 currentDate.innerHTML = formatDate(now);
+*/
+
+// Set local time - NEW!!
+
+function formatDate(timestamp) {
+  let currentdate = new Date(timestamp);
+  let date = currentdate.getDate();
+  let hours = currentdate.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = currentdate.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[currentdate.getDay()];
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let month = months[currentdate.getMonth()];
+  return `${day}, ${month} ${date}</br>${hours}:${minutes}`;
+}
 
 //Search Engine
 
@@ -61,6 +103,9 @@ function showTemperature(response) {
     response.data.wind.speed
   );
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
+  document.querySelector("#date").innerHTML = formatDate(
+    response.data.dt * 1000
+  );
 }
 
 function search(city) {
