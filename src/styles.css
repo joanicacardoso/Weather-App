@@ -61,17 +61,17 @@ h2 {
   margin-right: 2px;
 }
 
-.celsius:hover {
+.celsius:hover:active {
   border: 1px #fff solid;
   background-color: #fff;
   color: #f6d365;
-  cursor: pointer;
+  cursor: default;
 }
-.fahr:hover {
+.fahr:hover:active {
   border: 1px #fff solid;
   background-color: #fff;
   color: #f6d365;
-  cursor: pointer;
+  cursor: default;
 }
 
 .current-temp {
@@ -119,4 +119,11 @@ ul {
   margin-top: 52px;
   margin-left: -22px;
   color: gray;
+}
+
+.active {
+  border: 1px #fff solid;
+  background-color: #fff;
+  color: #f6d365;
+  cursor: default;
 }

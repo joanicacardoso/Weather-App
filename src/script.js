@@ -90,9 +90,8 @@ function formatDate(timestamp) {
 
 function showTemperature(response) {
   document.querySelector("#city").innerHTML = response.data.name;
-  document.querySelector("#temperature").innerHTML = Math.round(
-    response.data.main.temp
-  );
+  celsiusTemp = response.data.main.temp;
+  document.querySelector("#temperature").innerHTML = Math.round(celsiusTemp);
   savedTemperature = Math.round(response.data.main.temp);
   document.querySelector("#current-condition").innerHTML =
     response.data.weather[0].main;
@@ -128,8 +127,6 @@ function searchCity(event) {
 let cityForm = document.querySelector("#search-form");
 cityForm.addEventListener("submit", searchCity);
 
-search("Lisbon");
-
 let savedTemperature = 0;
 
 //Current location
@@ -157,18 +154,22 @@ function convertCel(event) {
   event.preventDefault();
   let currentTemp = document.querySelector("#temperature");
   let units = document.querySelector("#units");
-  currentTemp.innerHTML = savedTemperature;
+  currentTemp.innerHTML = Math.round(celsiusTemp);
   units.innerHTML = ` ºC`;
 }
 
 function convertFah(event) {
   event.preventDefault();
   let currentTemp = document.querySelector("#temperature");
-  let fTemp = Math.round(currentTemp * 9) / 5 + 32;
+  let fTemp = (celsiusTemp * 9) / 5 + 32;
+  currentTemp.innerHTML = Math.round(fTemp);
   let units = document.querySelector("#units");
-  currentTemp.innerHTML = fTemp;
   units.innerHTML = ` ºF`;
+  //add active class from celsius
+  // celsiusTemp.classList.add(".active");
 }
+
+let celsiusTemp = null;
 
 let fahrButton = document.querySelector("#btn-fah");
 fahrButton.addEventListener("click", convertFah);
@@ -198,3 +199,5 @@ function showDaysForecast(response) {
   }&cnt=5&appid=${apiKey}`;
   axios.get(apiUrlDays).then(showDaysForecast);
 */
+
+search("Lisbon");
